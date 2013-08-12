@@ -14,13 +14,12 @@ Generate a passphrase consisting of words chosen from word list dictionaries."""
       author_email='me@rpatterson.net',
       url='https://github.com/rpatterson/passphrasegen',
       license='GPLv2',
-      packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
+      py_modules=['passphrasegen'],
       include_package_data=True,
       zip_safe=True,
       install_requires=[
           # -*- Extra requirements: -*-
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
+      entry_points = {
+          'console_scripts': ['passphrasegen = passphrasegen:main']},
       )
