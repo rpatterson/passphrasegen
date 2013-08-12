@@ -3,7 +3,7 @@ import sys, os
 
 import passphrasegen
 
-version = '0.1'
+version = '1.0'
 
 setup(name='passphrasegen',
       version=version,
