@@ -28,13 +28,13 @@ group.add_argument(
 logger = logging.getLogger('passphrasegen')
 
 
-def main(args=None, namespace=None):
-    args = parser.parse_args(args, namespace)
-    if args.bits and args.length:
+def generate(wordlists,
+             bits=None, length=parser.get_default('length')):
+    if bits and length:
         raise ValueError("Specify only one of 'bits' and 'length' arguments")
 
     words = set()
-    for wordlist in args.wordlist:
+    for wordlist in wordlists:
         words.update(
             word.strip().replace("'", "").lower() for word in open(wordlist))
     words = list(words)
@@ -42,19 +42,24 @@ def main(args=None, namespace=None):
     logger.info('The word lists have %s words with %s bits of entropy',
                 len(words), round(words_bits, 1))
 
-    if args.length:
-        length = args.length
+    if length:
+        length = length
     else:
-        bits = args.bits
         if bits is None:
             bits = bits_default
         length = int(math.ceil(bits / words_bits))
-    bits = length * words_bits
+    passphrase_bits = length * words_bits
     logger.info('The passphrase has %s words with %s bits of entropy',
-                length, round(bits, 1))
+                length, round(passphrase_bits, 1))
 
-    return args.delimiter.join(random.choice(words) for n in xrange(length))
+    return [random.choice(words) for n in xrange(length)]
+    
+
+def main(args=None, namespace=None):
+    logging.basicConfig(level=logging.INFO)
+    args = parser.parse_args(args, namespace)
+    print args.delimiter.join(generate(
+        args.wordlist, args.bits, args.length))
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
     print main()
