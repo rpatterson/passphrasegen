@@ -53,7 +53,7 @@ def generate(wordlists,
     logger.info('The passphrase has %s words with %s bits of entropy',
                 length, round(passphrase_bits, 1))
 
-    return [random.choice(words) for n in xrange(length)]
+    return [random.SystemRandom().choice(words) for n in xrange(length)]
     
 
 def main(args=None, namespace=None):
