@@ -5,19 +5,12 @@ import passphrasegen
 
 version = '0.1'
 
-passphrasegen.parser.prog = passphrasegen.__name__
-long_description = """\
-See the usage/help message for details::
-
-    $ {} --help
-{}""".format(passphrasegen.__name__,
-             '\n'.join('    ' + line for line in
-                     passphrasegen.parser.format_help().splitlines()))
-
 setup(name='passphrasegen',
       version=version,
       description=passphrasegen.__doc__.strip(),
-      long_description=long_description,
+      long_description = open('README.rst').read() + '\n'.join(
+          '    ' + line for line in
+          passphrasegen.parser.format_help().splitlines()),
       classifiers=[
           'Development Status :: 4 - Beta',
           'Environment :: Console',
