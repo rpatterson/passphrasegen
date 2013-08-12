@@ -7,7 +7,7 @@ import random
 import argparse
 import logging
 
-bits_default = 128
+bits_default = 164
 parser = argparse.ArgumentParser(description=__doc__.strip())
 parser.add_argument(
     'wordlist', nargs='*', default = ['/usr/share/dict/words'],
