@@ -14,7 +14,7 @@ parser.add_argument(
 parser.add_argument(
     '-d', '--delimiter', default=' ',
     help='delimiter that separates the words in the passphrase'
-    '(default: %(default)s)')
+    '(default: %(default)r)')
 group = parser.add_mutually_exclusive_group()
 group.add_argument(
     '-b', '--bits', type=float, default=128,
