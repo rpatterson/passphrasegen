@@ -10,7 +10,7 @@ import logging
 parser = argparse.ArgumentParser(description=__doc__.strip())
 parser.add_argument(
     'wordlist', nargs='+',
-    help='one or more word lists or dictionaries with one word per line')
+    help='one or more word list dictionaries with one word per line')
 parser.add_argument(
     '-d', '--delimiter', default=' ',
     help='delimiter that separates the words in the passphrase'
