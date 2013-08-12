@@ -10,8 +10,9 @@ import logging
 bits_default = 128
 parser = argparse.ArgumentParser(description=__doc__.strip())
 parser.add_argument(
-    'wordlist', nargs='+',
-    help='one or more word list dictionaries with one word per line ')
+    'wordlist', nargs='*', default = ['/usr/share/dict/words'],
+    help='one or more word list dictionaries with one word per line '
+    '(default: %(default)r)')
 parser.add_argument(
     '-d', '--delimiter', default=' ',
     help='delimiter that separates the words in the passphrase '
