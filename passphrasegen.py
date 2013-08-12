@@ -7,6 +7,7 @@ import random
 import argparse
 import logging
 
+bits_default = 128
 parser = argparse.ArgumentParser(description=__doc__.strip())
 parser.add_argument(
     'wordlist', nargs='+',
@@ -17,9 +18,9 @@ parser.add_argument(
     '(default: %(default)r)')
 group = parser.add_mutually_exclusive_group()
 group.add_argument(
-    '-b', '--bits', type=float, default=128,
+    '-b', '--bits', type=float,
     help='minimum bits of entropy, determines the number of words '
-    '(default: %(default)s)')
+    '(default: %s)' % bits_default)
 group.add_argument(
     '-l', '--length', type=int,
     help='length of the passphrase in number of words')
@@ -29,6 +30,8 @@ logger = logging.getLogger('passphrasegen')
 
 def main(args=None, namespace=None):
     args = parser.parse_args(args, namespace)
+    if args.bits and args.length:
+        raise ValueError("Specify only one of 'bits' and 'length' arguments")
 
     words = set()
     for wordlist in args.wordlist:
@@ -42,7 +45,10 @@ def main(args=None, namespace=None):
     if args.length:
         length = args.length
     else:
-        length = int(math.ceil(args.bits / words_bits))
+        bits = args.bits
+        if bits is None:
+            bits = bits_default
+        length = int(math.ceil(bits / words_bits))
     bits = length * words_bits
     logger.info('The passphrase has %s words with %s bits of entropy',
                 length, round(bits, 1))
