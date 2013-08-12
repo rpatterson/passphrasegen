@@ -9,7 +9,7 @@ import logging
 
 parser = argparse.ArgumentParser(description=__doc__.strip())
 parser.add_argument(
-    'wordlists', nargs='+',
+    'wordlist', nargs='+',
     help='one or more word lists or dictionaries with one word per line')
 parser.add_argument(
     '-d', '--delimiter', default=' ',
@@ -31,7 +31,7 @@ def main(args=None, namespace=None):
     args = parser.parse_args(args, namespace)
 
     words = set()
-    for wordlist in args.wordlists:
+    for wordlist in args.wordlist:
         words.update(
             word.strip().replace("'", "").lower() for word in open(wordlist))
     words = list(words)
