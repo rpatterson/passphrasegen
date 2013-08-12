@@ -1,13 +1,23 @@
 from setuptools import setup, find_packages
 import sys, os
 
+import passphrasegen
+
 version = '0.1'
+
+passphrasegen.parser.prog = passphrasegen.__name__
+long_description = """\
+See the usage/help message for details::
+
+    $ {} --help
+{}""".format(passphrasegen.__name__,
+             '\n'.join('    ' + line for line in
+                     passphrasegen.parser.format_help().splitlines()))
 
 setup(name='passphrasegen',
       version=version,
-      description="Generate a passphrase consisting of words chosen from word list dictionaries.",
-      long_description="""\
-Generate a passphrase consisting of words chosen from word list dictionaries.""",
+      description=passphrasegen.__doc__.strip(),
+      long_description=long_description,
       classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       keywords='password generator passphrase entropy',
       author='Ross Patterson',
