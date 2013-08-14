@@ -63,4 +63,4 @@ def main(args=None, namespace=None):
         args.wordlist, args.bits, args.length))
 
 if __name__ == '__main__':
-    print main()
+    main()
